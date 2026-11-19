@@ -1,39 +1,21 @@
-# TodoMarket - Microservicio de productos
+# todomarket-productos
 
-API REST independiente para gestionar productos, precios, categorías, existencias, lotes y alertas de inventario. Construido con Java 17 y Spring Boot.
-
-## Requisitos
-
-- JDK 17 o superior
-- Apache Maven 3.6.3 o superior
+Repositorio del microservicio de Productos para el tercer corte de Diseño de Soluciones. Conserva el CRUD de inventario y sus consultas por estado, stock y vencimiento. Persiste los productos en MongoDB mediante Spring Data.
 
 ## Ejecutar
 
-Desde la raíz de este repositorio:
+Con Java 17 o posterior, Maven y MongoDB disponibles, ejecuta desde esta carpeta:
 
 ```powershell
 mvn spring-boot:run
 ```
 
-La API queda disponible en `http://localhost:8183`.
+La API local escucha en `8183`. Swagger está en [localhost:8183/swagger-ui/index.html](http://localhost:8183/swagger-ui/index.html). El cliente de esta API es el repositorio [todomarket-usuarios](https://github.com/diegooyola1029/todomarket-usuarios).
 
-## Endpoints
+| Variable | Uso |
+| --- | --- |
+| `PORT` | Puerto local 8183 por defecto. |
+| `MONGODB_URI` | URI MongoDB. Por defecto apunta a la base local `todomarket` en el puerto 27017. |
+| `SERVICE_TOKEN` | Credencial interna opcional para el entorno local y requerida al configurar la publicación. Usuarios envía este valor como `INVENTORY_TOKEN`. |
 
-Base: `http://localhost:8183/api/productos`
-
-- `GET /api/productos` - listar productos
-- `GET /api/productos/{id}` - buscar por ID
-- `POST /api/productos` - crear; el servicio asigna el ID
-- `PUT /api/productos/{id}` - actualizar
-- `DELETE /api/productos/{id}` - eliminar
-- `GET /api/productos/stock-bajo` - consultar stock bajo
-- `GET /api/productos/agotados` - consultar agotados
-- `GET /api/productos/vencidos` - consultar vencidos
-- `GET /api/productos/proximos-a-vencer` - consultar próximos a vencer
-- `GET /api/productos/alertas` - obtener alertas de inventario
-
-La API habilita CORS para el frontend local en `http://localhost:4200`.
-
-## Datos
-
-El repositorio de datos actual es en memoria. Al detener o reiniciar el servicio se vuelven a cargar los datos de ejemplo y se reinicia la secuencia de IDs.
+`Dockerfile` y `render.yaml` pertenecen a Productos. Este servicio se compila y se publica desde su propio repositorio. Las operaciones que llegan desde Usuarios pasan por la ruta `/api/productos`.

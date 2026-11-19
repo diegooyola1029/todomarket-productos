@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: todomarket-productos-tercer-corte
+    runtime: docker
+    plan: free
+    region: virginia
+    healthCheckPath: /v3/api-docs
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: SERVICE_TOKEN
+        sync: false
